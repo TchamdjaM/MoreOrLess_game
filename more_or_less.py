@@ -1,29 +1,31 @@
 import random
-attempts=0
 
-# Asking the user to input a number between 1 and 3.
-level=int(input('Choose the difficulty(1, 2, 3): '))
+def jeu_plus_ou_moins():
+    # Définir la plage pour le nombre aléatoire
+    limite_inférieure = 1
+    limite_supérieure = 100
+    nombre_secret = random.randint(limite_inférieure, limite_supérieure)
 
-if level == 1:
-   number = random.randint(0,10)
-   a = int(input('Enter a number between 0 and 10 : '))
-elif level == 2:
-    number = random.randint(0,100)
-    # Asking the user to input a number between 0 and 100.
-    a = int(input('Enter a number between 0 and 100 : '))
-else :
-    number = random.randint(0,1000)
-    a = int(input('Entrez un nombre entre 0 et 1000 : '))
+    # Initialiser les variables
+    tentatives = 0
+    nombre_deviné = None
 
-# Checking if the number is not equal to the user input.
-while number != a: 
-    if a<number:
-        print(f'The number is greater than {a}')
-    else:
-        print(f'The number is smaller than {a}')
+    print(f"Bienvenue dans le jeu Plus ou Moins ! Devinez le nombre entre {limite_inférieure} et {limite_supérieure}.")
 
-    a = int(input('Enter a number : '))
-    attempts += 1
+    while nombre_deviné != nombre_secret:
+        try:
+            nombre_deviné = int(input("Entrez votre estimation : "))
+            tentatives += 1
 
-# Printing the message"
-print(f'Congratulations, you found it in  {attempts} tries')
+            if nombre_deviné == nombre_secret:
+                print(f"Félicitations ! Vous avez deviné le nombre correct {nombre_secret} en {tentatives} tentatives.")
+            elif nombre_deviné < nombre_secret:
+                print("Plus ! Essayez un nombre plus élevé.")
+            else:
+                print("Moins ! Essayez un nombre plus bas.")
+
+        except ValueError:
+            print("Entrée non valide. Veuillez entrer un nombre valide.")
+
+if __name__ == "__main__":
+    jeu_plus_ou_moins()
